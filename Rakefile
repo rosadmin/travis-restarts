@@ -3,10 +3,9 @@ require 'travis'
 desc "Builds the ENV['TRAVIS_REPOSITORY'] travis job with token ENV['TRAVIS_TOKEN']"
 task :build do
   Travis.access_token = ENV['TRAVIS_TOKEN']
-  
+
   Travis::Repository.find(ENV['TRAVIS_REPO_ALM']).last_build.restart
   Travis::Repository.find(ENV['TRAVIS_REPO_ANTWEB']).last_build.restart
-  Travis::Repository.find(ENV['TRAVIS_REPO_BMC']).last_build.restart
   Travis::Repository.find(ENV['TRAVIS_REPO_ECOENGINE']).last_build.restart
   Travis::Repository.find(ENV['TRAVIS_REPO_ELASTIC']).last_build.restart
   Travis::Repository.find(ENV['TRAVIS_REPO_ELIFE']).last_build.restart
