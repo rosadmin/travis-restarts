@@ -15,7 +15,7 @@ Usage
 * Clone this repo locally
 
 ```shell
-git clone https://github.com/ropensci/travis-restarts.git
+git clone git@github.com:ropensci/travis-restarts.git
 ```
 
 * If you don't have it yet, install the [heroku toolbelt](https://devcenter.heroku.com/articles/quickstart)
@@ -43,7 +43,7 @@ bundle exec travis token
 * Add the parameters to your heroku app
 
 ```shell
-heroku config:add TRAVIS_REPOSITORY=<github-user>/<github-repo>
+heroku config:add TRAVIS_REPO_=<github-user>/<github-repo>
 heroku config:add TRAVIS_TOKEN=`bundle exec travis token`
 ```
 
