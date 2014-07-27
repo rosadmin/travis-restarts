@@ -10,7 +10,7 @@ Uses
 * [Travis-CI Ruby gem](https://github.com/travis-ci/travis.rb)
 * Adapted form [philou/daily-travis](https://github.com/philou/daily-travis)
 
-Note: After a few days the Heroku scheduler didn't work. I reset the scheduler from once per day to once per 10 minutes - it started working - then switched back to once per day. Now it seems to work again. Heroku states that the service is 100% reliable - indeed. Explored `clockwork` gem a bit, but didn't fully figure it out yet for a rack app (most egs are for Rails apps). 
+Note: After a few days the Heroku scheduler didn't work. I reset the scheduler from once per day to once per 10 minutes - it started working - then switched back to once per day. Now it seems to work again. Heroku states that the service is 100% reliable - indeed. Explored `clockwork` gem a bit, but didn't fully figure it out yet for a rack app (most egs are for Rails apps).
 
 Usage
 =====
@@ -42,7 +42,7 @@ bundle install
 bundle exec travis login
 bundle exec travis token
 ```
-
+ 
 * Add the parameters to your heroku app
 
 ```shell
