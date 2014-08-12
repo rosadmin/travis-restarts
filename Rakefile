@@ -1,6 +1,6 @@
 require 'travis'
 require 'httparty'
-require 'YAML'
+require 'yaml'
 
 def restart_travis(repo)
   lb = Travis::Repository.find(ENV[repo]).last_build
