@@ -18,3 +18,5 @@ vendor
 .yardoc
 _yardoc
 doc/
+
+settings.yml
