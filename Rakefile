@@ -62,9 +62,6 @@ task :build do
     restart_travis(iter)
   end
 
-end
-
-task :build do
   appveyor_repos = ['sckott/rgbif','sckott/alm','sckott/rnoaa','sckott/rWBclimate',
     'sckott/rinat','sckott/treeBASE','sckott/rgauges','sckott/rplos','sckott/rsnps',
     'sckott/solr','sckott/rentrez','sckott/taxize','karthik/rAltmetric','karthik/AntWeb',
@@ -76,3 +73,16 @@ task :build do
   end
 
 end
+
+# task :build do
+#   appveyor_repos = ['sckott/rgbif','sckott/alm','sckott/rnoaa','sckott/rWBclimate',
+#     'sckott/rinat','sckott/treeBASE','sckott/rgauges','sckott/rplos','sckott/rsnps',
+#     'sckott/solr','sckott/rentrez','sckott/taxize','karthik/rAltmetric','karthik/AntWeb',
+#     'karthik/rbison','karthik/ecoengine','karthik/rebird','karthik/rfisheries',
+#     'karthik/spocc']
+#
+#   appveyor_repos.each do |iter|
+#     restart_appveyor(iter)
+#   end
+#
+# end
