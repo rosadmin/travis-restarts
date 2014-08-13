@@ -19,10 +19,15 @@ GEM
       net-http-persistent (>= 2.7)
       net-http-pipeline
     highline (1.6.21)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
     method_source (0.8.2)
     multi_json (1.9.2)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
@@ -53,5 +58,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  httparty
   rake
   travis

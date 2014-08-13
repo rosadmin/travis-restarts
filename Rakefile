@@ -1,6 +1,5 @@
 require 'travis'
 require 'httparty'
-require 'yaml'
 
 def restart_travis(repo)
   lb = Travis::Repository.find(ENV[repo]).last_build
@@ -13,13 +12,6 @@ def restart_travis(repo)
   end
 end
 
-def getsettings
-  ymlfile = YAML.load_file('settings.yml')
-  ymlfile.each do |key, value|
-    ENV[key] ||= value
-  end
-end
-
 def restart_by_branch(name, slug, branch)
   body = {
     accountName: name,
@@ -29,7 +21,7 @@ def restart_by_branch(name, slug, branch)
   url = 'https://ci.appveyor.com/api/builds'
   HTTParty.post(url,
       :body => body,
-      :headers => {"Authorization" => 'Bearer ' + ENV['appveyortoken']})
+      :headers => {"Authorization" => 'Bearer ' + ENV['APPVEYOR_TOKEN']})
 end
 
 def restart_appveyor(repo)
@@ -73,8 +65,6 @@ task :build do
 end
 
 task :build do
-  getsettings()
-
   appveyor_repos = ['sckott/rgbif','sckott/alm','sckott/rnoaa','sckott/rWBclimate',
     'sckott/rinat','sckott/treeBASE','sckott/rgauges','sckott/rplos','sckott/rsnps',
     'sckott/solr','sckott/rentrez','sckott/taxize','karthik/rAltmetric','karthik/AntWeb',
