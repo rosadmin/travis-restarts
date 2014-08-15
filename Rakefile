@@ -43,7 +43,7 @@ end
 
 
 desc "Builds the ENV['TRAVIS_REPOSITORY'] travis job with token ENV['TRAVIS_TOKEN']"
-task :build do
+task :runtravis do
   Travis.access_token = ENV['TRAVIS_TOKEN']
 
   repos = ['TRAVIS_REPO_ALM','TRAVIS_REPO_ANTWEB','TRAVIS_REPO_ECOENGINE',
@@ -61,7 +61,10 @@ task :build do
   repos.each do |iter|
     restart_travis(iter)
   end
+end
 
+desc "Builds Appveyor job with token ENV['APPVEYOR_TOKEN']"
+task :runappveyor do
   appveyor_repos = ['sckott/rgbif','sckott/alm','sckott/rnoaa','sckott/rWBclimate',
     'sckott/rinat','sckott/treeBASE','sckott/rgauges','sckott/rplos','sckott/rsnps',
     'sckott/solr','sckott/rentrez','sckott/taxize','karthik/rAltmetric','karthik/AntWeb',
@@ -71,18 +74,4 @@ task :build do
   appveyor_repos.each do |iter|
     restart_appveyor(iter)
   end
-
 end
-
-# task :build do
-#   appveyor_repos = ['sckott/rgbif','sckott/alm','sckott/rnoaa','sckott/rWBclimate',
-#     'sckott/rinat','sckott/treeBASE','sckott/rgauges','sckott/rplos','sckott/rsnps',
-#     'sckott/solr','sckott/rentrez','sckott/taxize','karthik/rAltmetric','karthik/AntWeb',
-#     'karthik/rbison','karthik/ecoengine','karthik/rebird','karthik/rfisheries',
-#     'karthik/spocc']
-#
-#   appveyor_repos.each do |iter|
-#     restart_appveyor(iter)
-#   end
-#
-# end
