@@ -7,7 +7,7 @@ def restart_travis(repo)
   if lb_name == 'master'
     lb.restart
   else
-    if checkpr == true
+    if checkpr
       Travis::Repository.find(ENV[repo]).branches['master'].restart
     else
       lb.restart
