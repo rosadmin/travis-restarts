@@ -1,17 +1,23 @@
 require 'travis'
 
 def restart_travis(repo)
+  p repo
   lb = Travis::Repository.find(ENV[repo]).last_build
-  checkpr = lb.attributes['pull_request']
-  lb_name = lb.branch_info
-  if lb_name == 'master'
-    lb.restart
-  else
-    if checkpr
-      Travis::Repository.find(ENV[repo]).branches['master'].restart
-    else
+  if !lb.nil?
+    checkpr = lb.attributes['pull_request']
+    lb_name = lb.branch_info
+    if lb_name == 'master'
       lb.restart
-      Travis::Repository.find(ENV[repo]).branches['master'].restart
+      # p lb_name
+    else
+      if checkpr
+        Travis::Repository.find(ENV[repo]).branches['master'].restart
+        # p "other"
+      else
+        lb.restart
+        Travis::Repository.find(ENV[repo]).branches['master'].restart
+        # p "other"
+      end
     end
   end
 end
