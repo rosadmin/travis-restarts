@@ -64,8 +64,34 @@ task :runtravis do
   end
 end
 
+def restart_travis_local_env(repo)
+  Travis.access_token = ENV['TRAVIS_TOKEN']
+  lb = Travis::Repository.find(ENV[repo]).last_build
+  if !lb.nil?
+    checkpr = lb.attributes['pull_request']
+    lb_name = lb.branch_info
+    if lb_name == 'master'
+      lb.restart
+    else
+      if checkpr
+        Travis::Repository.find(ENV[repo]).branches['master'].restart
+      else
+        lb.restart
+        Travis::Repository.find(ENV[repo]).branches['master'].restart
+      end
+    end
+  end
+end
+
+# repos.each do |x|
+#     puts x
+#     restart_travis_local_env(x)
+#     puts x + "is done"
+# end
+
 def restart_travis_local(repo)
   p repo
+  Travis.access_token = ENV['TRAVIS_TOKEN']
   lb = Travis::Repository.find(repo).last_build
   if !lb.nil?
     checkpr = lb.attributes['pull_request']
@@ -84,10 +110,7 @@ def restart_travis_local(repo)
 end
 
 desc "Builds a travis job for a Github repo of the form <owner/repo> with token ENV['TRAVIS_TOKEN']"
-task :restart do
-  var = ENV['var']
-  Travis.access_token = ENV['TRAVIS_TOKEN']
-  puts var
-  puts "Restarting build for: #{var}"
-  restart_travis_local(var)
+task :restart, [:repo] do |t, args|
+  puts "Restarting build for: #{args[:repo]}"
+  restart_travis_local(args[:repo])
 end
