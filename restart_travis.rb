@@ -1,4 +1,4 @@
-def restart_travis(repo, sleep_sec = 1)
+def restart_travis(repo, sleep_sec = 3)
   tries ||= 3
 
   lb = Travis::Repository.find(ENV[repo]).last_build
