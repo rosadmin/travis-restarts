@@ -42,7 +42,7 @@ bundle install
 bundle exec travis login
 bundle exec travis token
 ```
- 
+
 * Add the parameters to your heroku app
 
 ```shell
