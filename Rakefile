@@ -1,14 +1,14 @@
 require 'travis'
 require_relative 'repos'
-require_relative 'restart_travis'
+require_relative 'restart_travis_new'
 require_relative 'other_fxns'
 
 desc "Builds the ENV['TRAVIS_REPOSITORY'] travis job with token ENV['TRAVIS_TOKEN']"
 task :runtravis do
-  Travis.access_token = ENV['TRAVIS_TOKEN']
+  #Travis.access_token = ENV['TRAVIS_TOKEN']
   $repos.each do |iter|
     begin
-      restart_travis(iter)
+      restart_travis_(iter)
     rescue
       next
     end

@@ -2,32 +2,49 @@ require 'faraday'
 require 'faraday_middleware'
 require 'multi_json'
 
-def do_travis(x)
-	tbase = 'https://api.travis-ci.org'
+tbase = 'https://api.travis-ci.org'
 
-	$conn = Faraday.new(:url => tbase) do |f|
-		f.adapter  Faraday.default_adapter
+$conn = Faraday.new(:url => tbase) do |f|
+	f.adapter  Faraday.default_adapter
+end
+$conn.headers[:accept] = 'application/vnd.travis-ci.2+json'
+$conn.headers['Authorization'] = 'token ' + ENV['TRAVIS_TOKEN']
+
+$conn2 = Faraday.new(:url => tbase) do |f|
+	f.adapter  Faraday.default_adapter
+end
+$conn2.headers['Travis-API-Version'] = '3'
+$conn2.headers['Authorization'] = 'token ' + ENV['TRAVIS_TOKEN']
+
+def get_repo(x)
+	res = $conn.get 'repos/' + ENV[x]
+	xx = MultiJson.load(res.body)
+	if xx.keys[0] == 'file'
+		xx = nil
 	end
-
-	$conn.headers[:user_agent] = 'faraday/' + Faraday::VERSION + '; travis-restarts'
-	$conn.headers[:accept] = 'application/vnd.travis-ci.2+json'
-	$conn.headers['Authorization: token'] = ENV['TRAVIS_TOKEN']
-
-	begin
-		res = $conn.get 'repos/' + x
-		json = MultiJson.load(res.body)
-	rescue Exception => e
-		e
-	end
-
-	begin
-		res2 = $conn.post 'builds/%s/restart' % json['repo']['last_build_id']
-		MultiJson.load(res2.body)
-	rescue Exception => e
-		e
-	end
+	return xx
 end
 
-do_travis('ropenscilabs/spplist')
+def restart_me(x)
+	res2 = $conn2.post 'build/%s/restart' % x['repo']['last_build_id']
+	return MultiJson.load(res2.body)
+end
 
-$conn.headers[:accept] = 'application/json; version=2'
+# def do_travis(x)
+# 	begin
+# 		res = $conn.get 'repos/' + x
+# 		json = MultiJson.load(res.body)
+# 	rescue Exception => e
+# 		e
+# 	end
+
+# 	begin
+# 		res2 = $conn2.post 'build/%s/restart' % json['repo']['last_build_id']
+# 		MultiJson.load(res2.body)
+# 	rescue Exception => e
+# 		e
+# 	end
+# end
+
+# get_repo(x = 'ropenscilabs/spplist')
+# do_travis(x = 'ropenscilabs/spplist')
