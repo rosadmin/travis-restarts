@@ -8,11 +8,11 @@ task :runtravis do
   #Travis.access_token = ENV['TRAVIS_TOKEN']
   $repos.each do |iter|
     begin
-      sleep(10) # sleep for 10 sec between repos to respect 10 requests / 30 sec rate limit
       restart_travis_(iter)
     rescue
       next
     end
+    sleep(360) # sleep for 6 min between repos to respect 10 requests / hr rate limit
   end
 end
 
