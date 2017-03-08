@@ -29,7 +29,7 @@ end
 
 desc "Builds Appveyor job with token ENV['APPVEYOR_TOKEN']"
 task :runappveyor do
-  appveyor_repos = ['sckott/rgbif','sckott/alm','sckott/rnoaa','sckott/rWBclimate',
+  appveyor_repos = ['sckott/rgbif','sckott/rnoaa','sckott/rWBclimate',
     'sckott/rinat','sckott/treeBASE','sckott/rgauges','sckott/rplos','sckott/rsnps',
     'sckott/solr','sckott/rentrez','sckott/taxize','karthik/rAltmetric','karthik/AntWeb',
     'karthik/rbison','karthik/ecoengine','karthik/rebird','karthik/rfisheries',
